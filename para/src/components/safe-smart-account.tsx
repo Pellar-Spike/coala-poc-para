@@ -5,6 +5,7 @@ import { useAccount, useWallet } from "@getpara/react-sdk";
 import { useState, useEffect } from "react";
 import { parseEther, getAddress, isAddress, formatEther, createPublicClient, http } from "viem";
 import { sepolia } from "viem/chains";
+import { CHAIN, RPC_URL, getEtherscanAddressUrl } from "@/config/network";
 
 export default function SafeSmartAccount() {
   const { smartAccountClient, safeAccount, isLoading, error: hookError } = useSafeSmartAccount();
@@ -29,8 +30,8 @@ export default function SafeSmartAccount() {
       setIsLoadingBalance(true);
       try {
         const publicClient = createPublicClient({
-          chain: sepolia,
-          transport: http(process.env.NEXT_PUBLIC_RPC_URL || "https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161")
+          chain: CHAIN,
+          transport: http(RPC_URL)
         });
         const balanceWei = await publicClient.getBalance({ address: safeAccount.address as `0x${string}` });
         setBalance(formatEther(balanceWei));
@@ -83,7 +84,7 @@ export default function SafeSmartAccount() {
       console.log("UserOperation hash:", userOpHash);
 
       // Show success message with UserOperation hash and instructions to check on Etherscan
-      setSuccess(`Transaction submitted successfully!\nUserOperation Hash: ${userOpHash}\n\nCheck transaction status on Etherscan:\nhttps://sepolia.etherscan.io/address/${safeAccount.address}`);
+      setSuccess(`Transaction submitted successfully!\nUserOperation Hash: ${userOpHash}\n\nCheck transaction status on Etherscan:\n${getEtherscanAddressUrl(safeAccount.address)}`);
     } catch (err: any) {
       console.error("Transaction error:", err);
       
@@ -245,7 +246,7 @@ export default function SafeSmartAccount() {
                       ⚠️ Low balance! Need at least 0.001-0.01 ETH to send transaction.
                       <br />
                       <a 
-                        href={`https://sepolia.etherscan.io/address/${safeAccount.address}`}
+                        href={getEtherscanAddressUrl(safeAccount.address)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline"

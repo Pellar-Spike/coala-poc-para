@@ -5,6 +5,7 @@ import { useViemAccount, useViemClient } from "@getpara/react-sdk/evm";
 import { encodeFunctionData, parseEther, http, getAddress, isAddress, parseGwei } from "viem";
 import { useState } from "react";
 import { sepolia } from "viem/chains";
+import { getEtherscanTxUrl } from "@/config/network";
 
 // ERC20 Transfer ABI
 const erc20TransferABI = [
@@ -124,7 +125,7 @@ export default function TransactionSigner() {
         maxPriorityFeePerGas: parseGwei("1"), // 1 Gwei priority fee
       });
 
-      return { hash, explorer: `https://sepolia.etherscan.io/tx/${hash}` };
+      return { hash, explorer: getEtherscanTxUrl(hash) };
     }, "Send Native Token");
   };
 
@@ -148,7 +149,7 @@ export default function TransactionSigner() {
         maxPriorityFeePerGas: parseGwei("1"), // 1 Gwei priority fee
       });
 
-      return { hash, explorer: `https://sepolia.etherscan.io/tx/${hash}` };
+      return { hash, explorer: getEtherscanTxUrl(hash) };
     }, "Send Transaction");
   };
 
@@ -183,7 +184,7 @@ export default function TransactionSigner() {
         maxPriorityFeePerGas: parseGwei("1"), // 1 Gwei priority fee
       });
 
-      return { hash, explorer: `https://sepolia.etherscan.io/tx/${hash}` };
+      return { hash, explorer: getEtherscanTxUrl(hash) };
     }, "ERC20 Transfer");
   };
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { http, createPublicClient, type LocalAccount, type Hex } from "viem";
-import { sepolia } from "viem/chains";
 import { useViemAccount, useViemClient } from "@getpara/react-sdk/evm";
 import { useWallet } from "@getpara/react-sdk";
 import { createSmartAccountClient } from "permissionless";
@@ -9,11 +8,7 @@ import { toSafeSmartAccount } from "permissionless/accounts";
 import { createPimlicoClient } from "permissionless/clients/pimlico";
 import { entryPoint07Address } from "viem/account-abstraction";
 import { useState, useEffect } from "react";
-
-// Configuration constants - Replace with your values
-const CHAIN = sepolia; // Target chain
-// Use Alchemy or Infura RPC for better reliability
-const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL || "https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"; // Your RPC endpoint
+import { CHAIN, RPC_URL } from "@/config/network";
 const PIMLICO_API_KEY = process.env.NEXT_PUBLIC_PIMLICO_API_KEY || 'YOUR_PIMLICO_API_KEY'; // From dashboard.pimlico.io
 const PIMLICO_URL = `https://api.pimlico.io/v2/${CHAIN.id}/rpc?apikey=${PIMLICO_API_KEY}`;
 

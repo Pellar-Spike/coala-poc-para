@@ -3,6 +3,7 @@ import { ConnectButton } from "@/components/connect-button";
 import WalletCreator from "@/components/wallet-creator";
 import TransactionSigner from "@/components/transaction-signer";
 import SafeSmartAccount from "@/components/safe-smart-account";
+import NGOWalletManager from "@/components/ngo-wallet-manager";
 
 export default function Home() {
   return (
@@ -50,6 +51,10 @@ export default function Home() {
             <div className="h-px w-full bg-zinc-200 dark:bg-zinc-800" />
 
             <SafeSmartAccount />
+
+            <div className="h-px w-full bg-zinc-200 dark:bg-zinc-800" />
+
+            <NGOWalletManager />
           </div>
         </div>
       </main>
